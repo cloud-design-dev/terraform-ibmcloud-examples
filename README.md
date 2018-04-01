@@ -45,5 +45,5 @@ export TF_VAR_ibm_bmx_space="$VALUE"
 
 ## Examples
 
-- [Log Analysis service deployed and configured on a VSI](LogAnalysisVSI/README.md)
+- [Log Analysis service deployed and configured on a VSI](LogAnalysisVSI/)
 - [Monitoring service deployed and configured on a VSI](MonitoringVSI/README.md)
