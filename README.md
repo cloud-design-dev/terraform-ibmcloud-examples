@@ -42,3 +42,8 @@ export TF_VAR_ibm_sl_api_key="$VALUE"
 export TF_VAR_ibm_bmx_org="$VALUE"
 export TF_VAR_ibm_bmx_space="$VALUE"
 ```
+
+## Examples
+
+- [Log Analysis service deployed and configured on a VSI](LogAnalysisVSI/README.md)
+- [Monitoring service deployed and configured on a VSI](MonitoringVSI/README.md)
