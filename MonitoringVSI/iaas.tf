@@ -1,5 +1,5 @@
 data "ibm_compute_ssh_key" "sshkey" {
-  label = "iodevbox"
+  label = "ryan_terra"
 }
 
 resource "ibm_compute_vm_instance" "node" {

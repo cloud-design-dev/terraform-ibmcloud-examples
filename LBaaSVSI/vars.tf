@@ -7,13 +7,17 @@ variable ibm_sl_username {}
 # IBM Cloud IaaS User API key (aka SoftLayer User Api Key)
 variable ibm_sl_api_key {}
 
-variable ibm_bmx_org {}
+# variable ibm_bmx_org {}
 
-variable ibm_bmx_space {}
+# variable ibm_bmx_space {}
 
 # The datacenter to deploy to
 variable datacenter {
   default = "dal13"
+}
+
+variable node_count {
+  default = "3"
 }
 
 # The target operating system for the web nodes
@@ -32,11 +36,11 @@ variable vm_memory {
 }
 
 variable priv_vlan {
-  default = "2279987"
+  default = "1583617"
 }
 
 variable pub_vlan {
-  default = "2279985"
+  default = "1583615"
 }
 
 # The domain name for the virtual guests

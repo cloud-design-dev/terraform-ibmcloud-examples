@@ -1,5 +1,5 @@
 # IBM Cloud PaaS API Key:
-variable ibm_bmx_apikey {}
+variable ibm_bx_api_key {}
 
 # IBM Cloud IaaS User (aka SoftLayer Username)
 variable ibm_sl_username {}
