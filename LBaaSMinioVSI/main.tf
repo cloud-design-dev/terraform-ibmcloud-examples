@@ -13,6 +13,7 @@ resource "ibm_compute_vm_instance" "node0" {
   os_reference_code    = "${var.os}"
   datacenter           = "${var.datacenter}"
   network_speed        = 1000
+  user_metadata        = "{\"MINIO_ACCESS_KEY=${var.maccess}\" : \"MINIO_SECRET_KEY=${var.msecret}\"}"
   hourly_billing       = true
   private_network_only = false
   cores                = "${var.vm_cores}"
@@ -49,6 +50,7 @@ resource "ibm_compute_vm_instance" "node1" {
   datacenter           = "${var.datacenter}"
   network_speed        = 1000
   hourly_billing       = true
+  user_metadata        = "{\"MINIO_ACCESS_KEY=${var.maccess}\" : \"MINIO_SECRET_KEY=${var.msecret}\"}"
   private_network_only = false
   cores                = "${var.vm_cores}"
   memory               = "${var.vm_memory}"
@@ -83,6 +85,7 @@ resource "ibm_compute_vm_instance" "node2" {
   os_reference_code    = "${var.os}"
   datacenter           = "${var.datacenter}"
   network_speed        = 1000
+  user_metadata        = "{\"MINIO_ACCESS_KEY=${var.maccess}\" : \"MINIO_SECRET_KEY=${var.msecret}\"}"
   hourly_billing       = true
   private_network_only = false
   cores                = "${var.vm_cores}"
@@ -118,6 +121,7 @@ resource "ibm_compute_vm_instance" "node3" {
   os_reference_code    = "${var.os}"
   datacenter           = "${var.datacenter}"
   network_speed        = 1000
+  user_metadata        = "{\"MINIO_ACCESS_KEY=${var.maccess}\" : \"MINIO_SECRET_KEY=${var.msecret}\"}"
   hourly_billing       = true
   private_network_only = false
   cores                = "${var.vm_cores}"
