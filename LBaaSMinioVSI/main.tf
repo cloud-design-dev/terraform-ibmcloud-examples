@@ -28,6 +28,13 @@ resource "ibm_compute_vm_instance" "node0" {
     "createdwithtf",
   ]
 
+  connection {
+    type        = "ssh"
+    user        = "root"
+    host        = "${self.ipv4_address}"
+    private_key = "${file("~/.ssh/id_rsa")}"
+  }
+
   provisioner "file" {
     source      = "postinstall.sh"
     destination = "/tmp/postinstall.sh"
@@ -62,6 +69,13 @@ resource "ibm_compute_vm_instance" "node1" {
     "ryantiffany",
     "createdwithtf",
   ]
+
+  connection {
+    type        = "ssh"
+    user        = "root"
+    host        = "${self.ipv4_address}"
+    private_key = "${file("~/.ssh/id_rsa")}"
+  }
 
   provisioner "file" {
     source      = "postinstall.sh"
@@ -98,6 +112,13 @@ resource "ibm_compute_vm_instance" "node2" {
     "createdwithtf",
   ]
 
+  connection {
+    type        = "ssh"
+    user        = "root"
+    host        = "${self.ipv4_address}"
+    private_key = "${file("~/.ssh/id_rsa")}"
+  }
+
   provisioner "file" {
     source      = "postinstall.sh"
     destination = "/tmp/postinstall.sh"
@@ -132,6 +153,13 @@ resource "ibm_compute_vm_instance" "node3" {
     "ryantiffany",
     "createdwithtf",
   ]
+
+  connection {
+    type        = "ssh"
+    user        = "root"
+    host        = "${self.ipv4_address}"
+    private_key = "${file("~/.ssh/id_rsa")}"
+  }
 
   provisioner "file" {
     source      = "postinstall.sh"
