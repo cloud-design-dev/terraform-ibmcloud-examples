@@ -11,6 +11,10 @@ variable dnsimple_token {}
 
 variable dnsimple_account {}
 
+variable msecret {}
+
+variable maccess {}
+
 variable dnsimple_domain {
   default = "cde.services"
 }
