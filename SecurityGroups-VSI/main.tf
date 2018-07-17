@@ -1,9 +1,3 @@
-provider "ibm" {
-  bluemix_api_key    = "${var.bxapikey}"
-  softlayer_username = "${var.slusername}"
-  softlayer_api_key  = "${var.slapikey}"
-}
-
 data "ibm_compute_ssh_key" "terra" {
     label = "terra"
 }
