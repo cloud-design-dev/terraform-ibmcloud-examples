@@ -1,7 +1,6 @@
 ## Prerequisites  
 - [Terraform installed](https://www.terraform.io/intro/getting-started/install.html)
 - [IBM Cloud Provider Binary installed](https://github.com/IBM-Cloud/terraform-provider-ibm/releases)
-- Your IBM Cloud Org and Space
 
 ## Configure Terraform  
 Create a `~/.terraformrc` file that points to the Terraform binary. For example if you installed the binary to `/usr/local/bin/terraform-provider-ibm` the `~/.terraformrc` would look like this:
@@ -15,7 +14,7 @@ providers {
 ## Configure Plugin to work with Terraform  
 To provide your credentials as environment variables, you can use the following code in your `provider.tf` file. *Please Note*: for the Kubernetes example you also need to add the region to the `provider.tf` file. 
 
-```
+```hcl
 provider "ibm" {
    bluemix_api_key    = "${var.ibm_bx_api_key}"
    softlayer_username = "${var.ibm_sl_username}"
@@ -25,7 +24,7 @@ provider "ibm" {
 
 Be sure to also define the following variables in your `var.tf` files:
 
-```
+```hcl
 variable ibm_bx_api_key {}
 variable ibm_sl_username {}
 variable ibm_sl_api_key {}
@@ -36,7 +35,7 @@ variable ibm_space_guid {}
 
 If you do not know your IBM Account/Org/Space GUID you can run the following commands to obtain them:
 
-````
+```shell
 # Get account guid 
 $ ibmcloud iam accounts
 
@@ -49,7 +48,7 @@ $ ibmcloud iam space <SPACE NAME> --guid
 
 With those gathered you can now export your environmental variables for use with Terraform. 
 
-```
+```hcl
 export TF_VAR_ibm_bx_api_key="$VALUE"
 export TF_VAR_ibm_sl_username="$VALUE"
 export TF_VAR_ibm_sl_api_key="$VALUE"
