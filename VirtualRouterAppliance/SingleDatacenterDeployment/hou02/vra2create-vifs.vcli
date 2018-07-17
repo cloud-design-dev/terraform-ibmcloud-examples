@@ -1,0 +1,12 @@
+#!/bin/vcli -f
+configure
+trap "{ end_configure; }" EXIT HUP
+set interfaces bonding dp0bond0 vif 1425 address '10.77.184.129/26'
+set interfaces bonding dp0bond1 vif 1595 address '184.172.196.193/27'
+
+if ! validate; then
+    exit 1
+fi
+if ! commit; then
+    exit 1
+fi

@@ -1,0 +1,45 @@
+#!/bin/vcli -f
+configure
+trap "{ end_configure; }" EXIT HUP
+set security vpn ipsec esp-group ESP-vRouter2Private lifetime '1800'
+set security vpn ipsec esp-group ESP-vRouter2Private proposal 1 encryption 'aes128'
+set security vpn ipsec esp-group ESP-vRouter2Private proposal 1 hash 'sha1'
+set security vpn ipsec esp-group ESP-vRouter2Private proposal 2 encryption '3des'
+set security vpn ipsec esp-group ESP-vRouter2Private proposal 2 hash 'md5'
+set security vpn ipsec esp-group ESP-vRouter2Public lifetime '1800'
+set security vpn ipsec esp-group ESP-vRouter2Public proposal 1 encryption 'aes128'
+set security vpn ipsec esp-group ESP-vRouter2Public proposal 1 hash 'sha2_256'
+set security vpn ipsec esp-group ESP-vRouter2Public proposal 2 encryption '3des'
+set security vpn ipsec esp-group ESP-vRouter2Public proposal 2 hash 'md5'
+set security vpn ipsec ike-group IKE-vRouter2Private lifetime '3600'
+set security vpn ipsec ike-group IKE-vRouter2Private proposal 1 encryption 'aes128'
+set security vpn ipsec ike-group IKE-vRouter2Private proposal 1 hash 'sha1'
+set security vpn ipsec ike-group IKE-vRouter2Private proposal 2 encryption 'aes128'
+set security vpn ipsec ike-group IKE-vRouter2Private proposal 2 hash 'md5'
+set security vpn ipsec ike-group IKE-vRouter2Public lifetime '3600'
+set security vpn ipsec ike-group IKE-vRouter2Public proposal 1 encryption 'aes128'
+set security vpn ipsec ike-group IKE-vRouter2Public proposal 1 hash 'sha2_256'
+set security vpn ipsec ike-group IKE-vRouter2Public proposal 2 encryption 'aes128'
+set security vpn ipsec ike-group IKE-vRouter2Public proposal 2 hash 'sha2_256'
+set security vpn ipsec site-to-site peer PRIVATE_IP authentication mode 'pre-shared-secret'
+set security vpn ipsec site-to-site peer PRIVATE_IP authentication pre-shared-secret 'JaduB4aw21'
+set security vpn ipsec site-to-site peer PRIVATE_IP default-esp-group 'ESP-vRouter2Private'
+set security vpn ipsec site-to-site peer PRIVATE_IP description 'Private VPN Tunnel between vRouters in SJC03'
+set security vpn ipsec site-to-site peer PRIVATE_IP ike-group 'IKE-vRouter2Private'
+set security vpn ipsec site-to-site peer PRIVATE_IP local-address 'LOCAL_PRIVATE'
+set security vpn ipsec site-to-site peer PRIVATE_IP tunnel 1 local prefix '192.168.40.0/24'
+set security vpn ipsec site-to-site peer PRIVATE_IP tunnel 1 remote prefix '192.168.20.0/24'
+set security vpn ipsec site-to-site peer PUBLIC_IP authentication mode 'pre-shared-secret'
+set security vpn ipsec site-to-site peer PUBLIC_IP authentication pre-shared-secret 'JaduB4aw21'
+set security vpn ipsec site-to-site peer PUBLIC_IP default-esp-group 'ESP-vRouter2Public'
+set security vpn ipsec site-to-site peer PUBLIC_IP description 'Public VPN Tunnel between vRouters in SJC03'
+set security vpn ipsec site-to-site peer PUBLIC_IP ike-group 'IKE-vRouter2Public'
+set security vpn ipsec site-to-site peer PUBLIC_IP local-address 'LOCAL_PUBLIC'
+set security vpn ipsec site-to-site peer PUBLIC_IP tunnel 1 local prefix '192.168.30.0/24'
+set security vpn ipsec site-to-site peer PUBLIC_IP tunnel 1 remote prefix '192.168.10.0/24'
+if ! validate; then
+    exit 1
+fi
+if ! commit; then
+    exit 1
+fi
