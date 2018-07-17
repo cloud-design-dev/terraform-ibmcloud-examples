@@ -1,5 +1,5 @@
 resource "ibm_container_cluster" "rttest_cluster" {
-  name            = "rttestcluster"
+  name            = "rt-tf-test-cluster"
   datacenter      = "wdc06"
   machine_type    = "u2c.2x4"
   public_vlan_id  = "1669321"
@@ -13,8 +13,8 @@ resource "ibm_container_cluster" "rttest_cluster" {
 
 resource "ibm_container_worker_pool_zone_attachment" "new_zone" {
   depends_on = ["ibm_container_cluster.rttest_cluster"]
-  count = 3
-  cluster = "rttestcluster"
+  count = 2
+  cluster = "rt-tf-test-cluster"
   worker_pool = "default"
   zone = "${element(var.zones,count.index)}"
   private_vlan_id = "${element(var.private_vlans,count.index)}"

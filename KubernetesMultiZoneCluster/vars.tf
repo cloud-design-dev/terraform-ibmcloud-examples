@@ -18,10 +18,10 @@ variable zones {
 
 variable private_vlans {
 type = "list"
-default = ["1892939", "2149535"]
+default = ["1892939", "2162809"]
 }
 
 variable public_vlans {
 type = "list"
-default = ["1892917", "2149537"]
+default = ["1892917", "2162807"]
 }
