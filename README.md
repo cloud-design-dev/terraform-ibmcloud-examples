@@ -5,7 +5,7 @@
 ## Configure Terraform  
 Create a `~/.terraformrc` file that points to the Terraform binary. For example if you installed the binary to `/usr/local/bin/terraform-provider-ibm` the `~/.terraformrc` would look like this:
 
-```
+```hcl
 providers {
     ibm = "/usr/local/bin/terraform-provider-ibm"
 }
@@ -48,7 +48,7 @@ $ ibmcloud iam space <SPACE NAME> --guid
 
 With those gathered you can now export your environmental variables for use with Terraform. 
 
-```hcl
+```shell
 export TF_VAR_ibm_bx_api_key="$VALUE"
 export TF_VAR_ibm_sl_username="$VALUE"
 export TF_VAR_ibm_sl_api_key="$VALUE"
