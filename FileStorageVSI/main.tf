@@ -1,5 +1,5 @@
-data "ibm_compute_ssh_key" "devboxkey" {
-  label = "ryan_bxdev"
+data "ibm_compute_ssh_key" "tycho" {
+  label = "ryan_tycho"
 }
 
 resource "ibm_storage_file" "fs_performance" {
@@ -30,29 +30,29 @@ resource "ibm_compute_vm_instance" "fsvsitest" {
      "ryantiffany",
      "terraform"
    ]
-   ssh_key_ids = ["${data.ibm_compute_ssh_key.devboxkey.id}"]
+   ssh_key_ids = ["${data.ibm_compute_ssh_key.tycho.id}"]
    file_storage_ids = ["${ibm_storage_file.fs_performance.id}"]
 
   provisioner "file" {
     source      = "mountstorage.sh"
     destination = "/tmp/mountstorage.sh"
-  connection {
-    type        = "ssh"
-    user        = "root"
-    host        = "${self.ipv4_address}"
-    private_key = "${file("~/.ssh/id_rsa")}"
-  }
+#  connection {
+#    type        = "ssh"
+#    user        = "root"
+#    host        = "${self.ipv4_address}"
+#    private_key = "${file("~/.ssh/id_rsa")}"
+#  }
 }
 
   provisioner "file" {
     source      = "${ibm_storage_file.fs_performance.id}_mountpath.txt"
     destination = "/tmp/mountpath.txt"
-  connection {
-    type        = "ssh"
-    user        = "root"
-    host        = "${self.ipv4_address}"
-    private_key = "${file("~/.ssh/id_rsa")}"
-  }
+#  connection {
+#    type        = "ssh"
+#    user        = "root"
+#    host        = "${self.ipv4_address}"
+#    private_key = "${file("~/.ssh/id_rsa")}"
+#  }
  }
  
   provisioner "remote-exec" {
