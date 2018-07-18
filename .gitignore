@@ -7,3 +7,4 @@
 backend.*
 *.env
 *.out
+*_mountpath.txt
