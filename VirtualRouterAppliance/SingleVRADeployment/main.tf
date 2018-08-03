@@ -9,10 +9,11 @@ resource "ibm_network_gateway" "gateway" {
     private_network_only = false
     tcp_monitoring       = true
     process_key_name     = "INTEL_INTEL_XEON_E52620_V4_2_10"
-    os_key_name          = "OS_VYATTA_5600_5_X_UP_TO_20GBPS_SUBSCRIPTION_EDITION_64_BIT"
+    os_key_name          = "OS_DEBIAN_8_X_JESSIE_MINIMAL_64_BIT_2"
     package_key_name     = "2U_NETWORK_GATEWAY_APPLIANCE_1O_GBPS"
     redundant_network    = false
     disk_key_names       = ["HARD_DRIVE_2_00TB_SATA_II"]
+    redundant_power_supply = true
     public_bandwidth     = 20000
     memory               = 32
     tags                 = ["ryantiffany"]

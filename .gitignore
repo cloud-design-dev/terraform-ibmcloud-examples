@@ -8,3 +8,4 @@ backend.*
 *.env
 *.out
 *_mountpath.txt
+*.DS_Store
