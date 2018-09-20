@@ -1,0 +1,10 @@
+#ps1_sysnative
+script: |
+ <powershell>
+ $username = "Administrator";
+ $user = [ADSI]"WinNT://./$username";
+ $user.SetPassword("NEWPASSWORD");
+ </powershell>
+
+
+
