@@ -11,7 +11,7 @@ providers {
 }
 ```
 
-## Configure Plugin to work with Terraform  
+## Configure Plugin to work with Terraform
 To provide your credentials as environment variables, you can use the following code in your `provider.tf` file. *Please Note*: for the Kubernetes example you also need to add the region to the `provider.tf` file. 
 
 ```hcl
@@ -56,6 +56,7 @@ export TF_VAR_ibm_account_guid="$VALUE"
 export TF_VAR_ibm_org_guid="$VALUE"
 export TF_VAR_ibm_space_guid="$VALUE"
 ```
+
 
 ## Examples
 

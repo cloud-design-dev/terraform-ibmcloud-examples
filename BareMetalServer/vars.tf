@@ -22,5 +22,5 @@ variable pub_vlan {
 
 # The domain name for the virtual guests
 variable domainname { 
-  default = "cde.services"
+  default = "cdetesting.com"
 }
