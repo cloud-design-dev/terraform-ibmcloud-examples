@@ -36,25 +36,12 @@ resource "ibm_compute_vm_instance" "fsvsitest" {
   provisioner "file" {
     source      = "mountstorage.sh"
     destination = "/tmp/mountstorage.sh"
-#  connection {
-#    type        = "ssh"
-#    user        = "root"
-#    host        = "${self.ipv4_address}"
-#    private_key = "${file("~/.ssh/id_rsa")}"
-#  }
 }
 
   provisioner "file" {
     source      = "${ibm_storage_file.fs_performance.id}_mountpath.txt"
     destination = "/tmp/mountpath.txt"
-#  connection {
-#    type        = "ssh"
-#    user        = "root"
-#    host        = "${self.ipv4_address}"
-#    private_key = "${file("~/.ssh/id_rsa")}"
-#  }
- }
- 
+
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/mountstorage.sh",
@@ -62,4 +49,3 @@ resource "ibm_compute_vm_instance" "fsvsitest" {
     ]
   }
 }
-

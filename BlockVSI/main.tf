@@ -41,36 +41,36 @@ resource "ibm_compute_vm_instance" "blockvsitest" {
    ssh_key_ids = ["${data.ibm_compute_ssh_key.tycho.id}"]
 }
 
-resource "null_resource" "vsi_postinstall" {
+// resource "null_resource" "vsi_postinstall" {
 
- connection {
-    host = "${ibm_compute_vm_instance.blockvsitest.ipv4_address}"
-}
+//  connection {
+//     host = "${ibm_compute_vm_instance.blockvsitest.ipv4_address}"
+// }
 
-  provisioner "file" {
-    source      = "mount.sh"
-    destination = "/tmp/mount.sh"
-}
+//   provisioner "file" {
+//     source      = "mount.sh"
+//     destination = "/tmp/mount.sh"
+// }
 
-  provisioner "file" {
-      source = "initiatorname.iscsi"
-      destination = "/tmp/initiatorname.iscsi"
-  }
+//   provisioner "file" {
+//       source = "initiatorname.iscsi"
+//       destination = "/tmp/initiatorname.iscsi"
+//   }
 
-  provisioner "file" {
-      source = "iscsi-example.conf"
-      destination = "/tmp/iscsi-example.conf"
-  }
+//   provisioner "file" {
+//       source = "iscsi-example.conf"
+//       destination = "/tmp/iscsi-example.conf"
+//   }
 
-  provisioner "file" {
-    source      = "${ibm_storage_block.blocktest.id}_details.txt"
-    destination = "/tmp/mountpath.txt"
-}
+//   provisioner "file" {
+//     source      = "${ibm_storage_block.blocktest.id}_details.txt"
+//     destination = "/tmp/mountpath.txt"
+// }
 
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/mount.sh",
-      "/tmp/mount.sh",
-    ]
-  }
-}
+//   provisioner "remote-exec" {
+//     inline = [
+//       "chmod +x /tmp/mount.sh",
+//       "/tmp/mount.sh",
+//     ]
+//   }
+// }

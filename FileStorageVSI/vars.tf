@@ -10,8 +10,12 @@ variable private_vlan {
     default = 1892939
 }
 
+variable dnsimple_token {}
+
+variable dnsimple_account {}
+
 variable domain_name { 
-    default = "cde.services"
+    default = "cdetesting.com"
 }
 
 variable datacenter {

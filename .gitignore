@@ -9,4 +9,5 @@ backend.*
 *.out
 *_mountpath.txt
 *.DS_Store
-credentials.tfvars
+*.tfvars
+*.tfplan
