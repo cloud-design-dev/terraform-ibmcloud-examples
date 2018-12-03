@@ -11,3 +11,4 @@ backend.*
 *.DS_Store
 *.tfvars
 *.tfplan
+*.txt

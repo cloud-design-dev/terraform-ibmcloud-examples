@@ -3,19 +3,19 @@ variable ibm_sl_username {}
 variable ibm_sl_api_key {}
 
 variable public_vlan {
-    default = 1892917
+  default = 1892917
 }
 
 variable private_vlan {
-    default = 1892939
+  default = 1892939
 }
 
-variable domain_name { 
-    default = "cdetesting.com"
+variable domain_name {
+  default = "cdetesting.com"
 }
 
 variable datacenter {
-    default = "wdc07"
+  default = "wdc07"
 }
 
 variable vm_flavor {

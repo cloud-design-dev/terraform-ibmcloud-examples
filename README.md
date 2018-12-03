@@ -12,6 +12,7 @@ providers {
 ```
 
 ## Configure Plugin to work with Terraform
+
 To provide your credentials as environment variables, you can use the following code in your `provider.tf` file. *Please Note*: for the Kubernetes example you also need to add the region to the `provider.tf` file. 
 
 ```hcl
@@ -22,12 +23,17 @@ provider "ibm" {
 }
 ```
 
-Be sure to also define the following variables in your `var.tf` files:
+Be sure to also define at minimum the following variables in your `var.tf` files:
 
 ```hcl
 variable ibm_bx_api_key {}
 variable ibm_sl_username {}
 variable ibm_sl_api_key {}
+```
+
+For any example that also deploys a PaaS offering you may also need to add:
+
+```
 variable ibm_account_guid {}
 variable ibm_org_guid {}
 variable ibm_space_guid {}
@@ -52,11 +58,10 @@ With those gathered you can now export your environmental variables for use with
 export TF_VAR_ibm_bx_api_key="$VALUE"
 export TF_VAR_ibm_sl_username="$VALUE"
 export TF_VAR_ibm_sl_api_key="$VALUE"
-export TF_VAR_ibm_account_guid="$VALUE"
-export TF_VAR_ibm_org_guid="$VALUE"
-export TF_VAR_ibm_space_guid="$VALUE"
+export TF_VAR_ibm_account_guid="$VALUE"  # If needed
+export TF_VAR_ibm_org_guid="$VALUE"  # If needed
+export TF_VAR_ibm_space_guid="$VALUE"  # If needed
 ```
-
 
 ## Examples
 
