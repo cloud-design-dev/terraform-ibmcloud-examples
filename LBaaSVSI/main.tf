@@ -1,5 +1,5 @@
 data "ibm_compute_ssh_key" "sshkey" {
-  label = "ryan_terra"
+  label = "ryan_tycho"
 }
 
 resource "ibm_compute_vm_instance" "node" {
@@ -18,8 +18,8 @@ resource "ibm_compute_vm_instance" "node" {
   public_vlan_id             = "${var.pub_vlan}"
   private_vlan_id            = "${var.priv_vlan}"
   ssh_key_ids                = ["${data.ibm_compute_ssh_key.sshkey.id}"]
-  public_security_group_ids  = [553729, 369169, 369163]
-  private_security_group_ids = [369163]
+  // public_security_group_ids  = [553729, 369169, 369163]
+  // private_security_group_ids = [369163]
 
   tags = [
     "ryantiffany",
@@ -58,15 +58,15 @@ resource "ibm_lbaas" "lbaas" {
     "load_balancing_method" = "round_robin"
   }]
 
-  server_instances = [
-    {
-      "private_ip_address" = "${ibm_compute_vm_instance.node.0.ipv4_address_private}"
-    },
-    {
-      "private_ip_address" = "${ibm_compute_vm_instance.node.1.ipv4_address_private}"
-    },
-    {
-      "private_ip_address" = "${ibm_compute_vm_instance.node.2.ipv4_address_private}"
-    },
-  ]
+  // server_instances = [
+  //   {
+  //     "private_ip_address" = "${ibm_compute_vm_instance.node.0.ipv4_address_private}"
+  //   },
+  //   {
+  //     "private_ip_address" = "${ibm_compute_vm_instance.node.1.ipv4_address_private}"
+  //   },
+  //   {
+  //     "private_ip_address" = "${ibm_compute_vm_instance.node.2.ipv4_address_private}"
+  //   },
+  // ]
 }
