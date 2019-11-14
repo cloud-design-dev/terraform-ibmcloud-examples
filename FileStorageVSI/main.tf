@@ -1,5 +1,5 @@
-data "ibm_compute_ssh_key" "tycho" {
-  label = "ryan_tycho"
+data "ibm_compute_ssh_key" "public_key" {
+    label = "Terraform Public Key"
 }
 
 resource "ibm_storage_file" "fs_performance" {
@@ -18,7 +18,7 @@ resource "ibm_compute_vm_instance" "fsvsitest" {
    depends_on = ["ibm_storage_file.fs_performance"]
    hostname = "fsvsitest"
    os_reference_code = "${var.os}"
-   domain = "${var.domain_name}"
+   domain = "${var.domain}"
    datacenter = "${var.datacenter}"
    network_speed  = 1000
    hourly_billing = true
@@ -27,10 +27,10 @@ resource "ibm_compute_vm_instance" "fsvsitest" {
    private_vlan_id = "${var.private_vlan}"
    local_disk = false
    tags = [
-     "ryantiffany",
+     "filestorage",
      "terraform"
    ]
-   ssh_key_ids = ["${data.ibm_compute_ssh_key.tycho.id}"]
+   ssh_key_ids = ["${data.ibm_compute_ssh_key.public_key.id}"]
    file_storage_ids = ["${ibm_storage_file.fs_performance.id}"]
 
   provisioner "file" {

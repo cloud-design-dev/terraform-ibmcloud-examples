@@ -1,5 +1,5 @@
 data "ibm_compute_ssh_key" "sshkey" {
-    label = "ryan_terra"
+    label = "YOUR_SSH_KEY"
 }
 
 resource "ibm_compute_bare_metal" "monthly_bm1" {
@@ -10,7 +10,7 @@ resource "ibm_compute_bare_metal" "monthly_bm1" {
     memory = 64
     os_key_name = "OS_UBUNTU_16_04_LTS_XENIAL_XERUS_64_BIT"
     hostname = "cust-bm"
-    domain = "ms.com"
+    domain = "${var.domain}"
     datacenter = "${var.datacenter}"
     network_speed = 10000
     public_bandwidth = 500
@@ -20,8 +20,8 @@ resource "ibm_compute_bare_metal" "monthly_bm1" {
 # Optional fields
     private_network_only = false
     unbonded_network = true
-    public_vlan_id = "${var.pub_vlan}"
-    private_vlan_id = "${var.priv_vlan}"
+    public_vlan_id = "${var.public_vlan_id}"
+    private_vlan_id = "${var.private_vlan_id}"
     tags = [
       "ryan",
       "testing"

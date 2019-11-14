@@ -5,7 +5,7 @@ data "ibm_compute_ssh_key" "tycho" {
 resource "ibm_storage_block" "blocktest" {
   depends_on                = ["ibm_compute_vm_instance.blockvsitest"]
   type                      = "Endurance"
-  datacenter                = "wdc07"
+  datacenter                = "${var.datacenter}"
   capacity                  = 20
   iops                      = 0.25
   os_format_type            = "Linux"

@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-export DEBIAN_FRONTEND=noninteractive
-apt-get update 
-apt-get upgrade -y -qq
-apt-get install -y nfs-common
+DEBIAN_FRONTEND=noninteractive apt-get update 
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -qq
+DEBIAN_FRONTEND=noninteractive apt-get install -y nfs-common
 
 mkdir -p /mnt/test
 

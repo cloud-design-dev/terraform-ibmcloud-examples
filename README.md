@@ -5,67 +5,50 @@
 * [Terraform installed](https://www.terraform.io/intro/getting-started/install.html)
 * [IBM Cloud Provider Binary installed](https://github.com/IBM-Cloud/terraform-provider-ibm/releases)
 
+
+**NOTE**: The IBM Terraform provider does not currently support Terraform `v0.12`. You will need to install `v0.11.x` until such time as the IBM provider has been updated to support the newer version of Terraform.
+
 ## Configure Terraform
 
-Create a `~/.terraformrc` file that points to the Terraform binary. For example if you installed the binary to `/usr/local/bin/terraform-provider-ibm` the `~/.terraformrc` would look like this:
+If the Terraform plugin directory does not already exist create it and put the downloaded IBM Terraform provider in the newly created directory. 
 
-```text
-providers {
-    ibm = "/usr/local/bin/terraform-provider-ibm"
-}
+```
+$ mkdir $HOME/.terraform.d/plugins
+$ mv $HOME/Downloads/terraform-provider-ibm* $HOME/.terraform.d/plugins/
 ```
 
 ## Configure Plugin to work with Terraform
+Most of the examples here are configured to work with your credentials exported as Environment Variables. 
 
-To provide your credentials as environment variables, you can use the following code in your `provider.tf` file. _Please Note_: for the Kubernetes example you also need to add the region to the `provider.tf` file.
+### Static credentials
 
-```text
+If you need to use Static credentials you can provide them by adding the `ibmcloud_api_key`, `iaas_classic_username`, and `iaas_classic_api_key` arguments in the IBM Cloud provider block.
+
+```hcl
 provider "ibm" {
-   bluemix_api_key    = "${var.ibm_bx_api_key}"
-   softlayer_username = "${var.ibm_sl_username}"
-   softlayer_api_key  = "${var.ibm_sl_api_key}"
+    ibmcloud_api_key = ""
+    iaas_classic_username = ""
+    iaas_classic_api_key = ""
 }
 ```
 
-Be sure to also define at minimum the following variables in your `var.tf` files:
+### Environment variables
+The recommended approach is to provide your credentials by exporting the `IC_API_KEY`, `IAAS_CLASSIC_USERNAME`, and `IAAS_CLASSIC_API_KEY` environment variables, representing your IBM Cloud platform API key, IBM Cloud Classic Infrastructure (SoftLayer) user name, and IBM Cloud infrastructure API key, respectively.
 
-```text
-variable ibm_bx_api_key {}
-variable ibm_sl_username {}
-variable ibm_sl_api_key {}
+```
+export IC_API_KEY="IBM CLOUD API KEY"
+export IAAS_CLASSIC_USERNAME="SOFTLAYER USERNAME"
+export IAAS_CLASSIC_API_KEY="SOFTLAYER API KEY"
 ```
 
-For any example that also deploys a PaaS offering you may also need to add:
+Using Environment variables allows you to use a stripped down `provider.tf` file:
 
-```text
-variable ibm_account_guid {}
-variable ibm_org_guid {}
-variable ibm_space_guid {}
+```
+provider "ibm" {}
 ```
 
-If you do not know your IBM Account/Org/Space GUID you can run the following commands to obtain them:
+You can see the full list of supported provider variables [here](https://ibm-cloud.github.io/tf-ibm-docs/).
 
-```text
-# Get account guid 
-$ ibmcloud iam accounts
-
-# Get Org guid
-$ ibmcloud iam orgs --guid
-
-# Get Space guid
-$ ibmcloud iam space <SPACE NAME> --guid
-```
-
-With those gathered you can now export your environmental variables for use with Terraform.
-
-```text
-export TF_VAR_ibm_bx_api_key="$VALUE"
-export TF_VAR_ibm_sl_username="$VALUE"
-export TF_VAR_ibm_sl_api_key="$VALUE"
-export TF_VAR_ibm_account_guid="$VALUE"  # If needed
-export TF_VAR_ibm_org_guid="$VALUE"  # If needed
-export TF_VAR_ibm_space_guid="$VALUE"  # If needed
-```
 
 ## Examples
 
