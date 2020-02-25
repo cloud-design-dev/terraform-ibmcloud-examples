@@ -49,3 +49,4 @@ resource "ibm_compute_vm_instance" "fsvsitest" {
     ]
   }
 }
+}

@@ -3,21 +3,22 @@ data "ibm_compute_ssh_key" "sshkey" {
 }
 
 resource "ibm_compute_vm_instance" "node" {
-  count                      = "${var.node_count}"
-  hostname                   = "node${count.index+1}"
-  domain                     = "${var.domainname}"
-  os_reference_code          = "${var.os}"
-  datacenter                 = "${var.datacenter}"
-  network_speed              = 1000
-  hourly_billing             = true
-  private_network_only       = false
-  cores                      = "${var.vm_cores}"
-  memory                     = "${var.vm_memory}"
-  disks                      = [100]
-  local_disk                 = false
-  public_vlan_id             = "${var.pub_vlan}"
-  private_vlan_id            = "${var.priv_vlan}"
-  ssh_key_ids                = ["${data.ibm_compute_ssh_key.sshkey.id}"]
+  count                = var.node_count
+  hostname             = "node${count.index + 1}"
+  domain               = var.domainname
+  os_reference_code    = var.os
+  datacenter           = var.datacenter
+  network_speed        = 1000
+  hourly_billing       = true
+  private_network_only = false
+  cores                = var.vm_cores
+  memory               = var.vm_memory
+  disks                = [100]
+  local_disk           = false
+  public_vlan_id       = var.pub_vlan
+  private_vlan_id      = var.priv_vlan
+  ssh_key_ids          = [data.ibm_compute_ssh_key.sshkey.id]
+
   // public_security_group_ids  = [553729, 369169, 369163]
   // private_security_group_ids = [369163]
 
@@ -45,19 +46,18 @@ resource "ibm_compute_vm_instance" "node" {
 }
 
 resource "ibm_lbaas" "lbaas" {
-  depends_on  = ["ibm_compute_vm_instance.node"]
+  depends_on  = [ibm_compute_vm_instance.node]
   name        = "tflbaas"
   description = "LBaaS spun up using terraform"
   subnets     = [1470945]
 
-  protocols = [{
-    "frontend_protocol"     = "HTTP"
-    "frontend_port"         = 80
-    "backend_protocol"      = "HTTP"
-    "backend_port"          = 80
-    "load_balancing_method" = "round_robin"
-  }]
-
+  protocols {
+    frontend_protocol     = "HTTP"
+    frontend_port         = 80
+    backend_protocol      = "HTTP"
+    backend_port          = 80
+    load_balancing_method = "round_robin"
+  }
   // server_instances = [
   //   {
   //     "private_ip_address" = "${ibm_compute_vm_instance.node.0.ipv4_address_private}"
@@ -70,3 +70,4 @@ resource "ibm_lbaas" "lbaas" {
   //   },
   // ]
 }
+

@@ -3,15 +3,15 @@ data "ibm_compute_ssh_key" "tycho" {
 }
 
 resource "ibm_storage_block" "blocktest" {
-  depends_on                = ["ibm_compute_vm_instance.blockvsitest"]
+  depends_on                = [ibm_compute_vm_instance.blockvsitest]
   type                      = "Endurance"
-  datacenter                = "${var.datacenter}"
+  datacenter                = var.datacenter
   capacity                  = 20
   iops                      = 0.25
   os_format_type            = "Linux"
   snapshot_capacity         = 10
   hourly_billing            = true
-  allowed_virtual_guest_ids = ["${ibm_compute_vm_instance.blockvsitest.id}"]
+  allowed_virtual_guest_ids = [ibm_compute_vm_instance.blockvsitest.id]
 
   provisioner "local-exec" {
     command = "echo ${jsonencode(ibm_storage_block.blocktest.allowed_host_info)} >> ${ibm_storage_block.blocktest.id}_details.txt"
@@ -24,14 +24,14 @@ resource "ibm_storage_block" "blocktest" {
 
 resource "ibm_compute_vm_instance" "blockvsitest" {
   hostname          = "blockvsitest"
-  os_reference_code = "${var.os}"
-  domain            = "${var.domain_name}"
-  datacenter        = "${var.datacenter}"
+  os_reference_code = var.os
+  domain            = var.domain_name
+  datacenter        = var.datacenter
   network_speed     = 1000
   hourly_billing    = true
-  flavor_key_name   = "${var.vm_flavor}"
-  public_vlan_id    = "${var.public_vlan}"
-  private_vlan_id   = "${var.private_vlan}"
+  flavor_key_name   = var.vm_flavor
+  public_vlan_id    = var.public_vlan
+  private_vlan_id   = var.private_vlan
   local_disk        = false
 
   tags = [
@@ -39,12 +39,12 @@ resource "ibm_compute_vm_instance" "blockvsitest" {
     "terraform",
   ]
 
-  ssh_key_ids = ["${data.ibm_compute_ssh_key.tycho.id}"]
+  ssh_key_ids = [data.ibm_compute_ssh_key.tycho.id]
 }
 
 resource "null_resource" "vsi_postinstall" {
   connection {
-    host = "${ibm_compute_vm_instance.blockvsitest.ipv4_address}"
+    host = ibm_compute_vm_instance.blockvsitest.ipv4_address
   }
 
   provisioner "file" {
@@ -74,3 +74,4 @@ resource "null_resource" "vsi_postinstall" {
     ]
   }
 }
+

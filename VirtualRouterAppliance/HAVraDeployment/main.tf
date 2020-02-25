@@ -1,10 +1,10 @@
 resource "ibm_network_gateway" "gateway" {
   name = "tf-gateway"
 
-  members = [{
+  members {
     hostname             = "tf-gateway-1"
-    domain               = "${var.domainname}"
-    datacenter           = "${var.dc}"
+    domain               = var.domainname
+    datacenter           = var.dc
     network_speed        = 10000
     private_network_only = false
     tcp_monitoring       = true
@@ -18,11 +18,11 @@ resource "ibm_network_gateway" "gateway" {
     tags                 = ["network_gateway", "deployedwithtf"]
     notes                = "gateway notes 1"
     ipv6_enabled         = true
-  },
-    {
+  }
+  members {
     hostname             = "tf-gateway-2"
-    domain               = "${var.domainname}"
-    datacenter           = "${var.dc}"
+    domain               = var.domainname
+    datacenter           = var.dc
     network_speed        = 10000
     private_network_only = false
     tcp_monitoring       = true
@@ -36,6 +36,6 @@ resource "ibm_network_gateway" "gateway" {
     tags                 = ["network_gateway", "deployedwithtf"]
     notes                = "gateway notes 2"
     ipv6_enabled         = true
-    },
-  ]
+  }
 }
+

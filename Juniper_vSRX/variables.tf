@@ -1,5 +1,5 @@
-variable datacenter {
-  type = "map"
+variable "datacenter" {
+  type = map(string)
 
   default = {
     "us-east1"  = "wdc04"

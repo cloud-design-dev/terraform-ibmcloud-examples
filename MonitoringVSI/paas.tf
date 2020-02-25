@@ -1,19 +1,19 @@
 data "ibm_org" "orgData" {
-  org = "${var.ibm_bmx_org}"
+  org = var.ibm_bmx_org
 }
 
 data "ibm_account" "accountData" {
-  org_guid = "${data.ibm_org.orgData.id}"
+  org_guid = data.ibm_org.orgData.id
 }
 
 data "ibm_space" "spaceData" {
-  space = "${var.ibm_bmx_space}"
-  org   = "${var.ibm_bmx_org}"
+  space = var.ibm_bmx_space
+  org   = var.ibm_bmx_org
 }
 
 resource "ibm_service_instance" "monitoring" {
   name       = "tfmonitoring"
-  space_guid = "${data.ibm_space.spaceData.id}"
+  space_guid = data.ibm_space.spaceData.id
   service    = "Monitoring"
   plan       = "premium"
 
@@ -25,3 +25,4 @@ resource "ibm_service_instance" "monitoring" {
     command = "bx iam space dev --guid > space.id"
   }
 }
+

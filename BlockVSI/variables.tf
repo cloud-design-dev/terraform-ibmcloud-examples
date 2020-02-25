@@ -1,27 +1,27 @@
-
-variable public_vlan {
-  type = "string"
+variable "public_vlan" {
+  type    = string
   default = ""
 }
 
-variable private_vlan {
-  type = "string"
+variable "private_vlan" {
+  type    = string
   default = ""
 }
 
-variable domain {
+variable "domain" {
   default = "example.com"
 }
 
-variable datacenter {
-  type = "string"
+variable "datacenter" {
+  type    = string
   default = ""
 }
 
-variable vm_flavor {
+variable "vm_flavor" {
   default = "B1_2X4X100"
 }
 
-variable os {
+variable "os" {
   default = "UBUNTU_LATEST_64"
 }
+
