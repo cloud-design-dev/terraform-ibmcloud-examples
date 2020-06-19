@@ -25,7 +25,7 @@ resource "ibm_storage_block" "blocktest" {
 resource "ibm_compute_vm_instance" "blockvsitest" {
   hostname          = "blockvsitest"
   os_reference_code = var.os
-  domain            = var.domain_name
+  domain            = var.domain
   datacenter        = var.datacenter
   network_speed     = 1000
   hourly_billing    = true
