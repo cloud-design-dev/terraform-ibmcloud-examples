@@ -1,12 +1,12 @@
-variable "public_vlan" {
-  type    = string
-  default = ""
-}
+# variable "public_vlan" {
+#   type    = string
+#   default = ""
+# }
 
-variable "private_vlan" {
-  type    = string
-  default = ""
-}
+# variable "private_vlan" {
+#   type    = string
+#   default = ""
+# }
 
 variable "domain" {
   default = "example.com"
