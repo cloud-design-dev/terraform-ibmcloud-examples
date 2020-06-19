@@ -18,7 +18,7 @@ resource "ibm_compute_vm_instance" "node" {
   public_vlan_id       = "${var.pub_vlan}"
   private_vlan_id      = "${var.priv_vlan}"
   ssh_key_ids          = ["${data.ibm_compute_ssh_key.sshkey.id}"]
-  
+
   provisioner "file" {
     source      = "tfcostest.out"
     destination = "/tmp/tfcostest.coskey"

@@ -1,10 +1,10 @@
 variable public_vlan {
-  type = "string"
+  type    = "string"
   default = ""
 }
 
 variable private_vlan {
-  type = "string"
+  type    = "string"
   default = ""
 }
 
@@ -13,7 +13,7 @@ variable domain {
 }
 
 variable datacenter {
-  type = "string"
+  type    = "string"
   default = ""
 }
 
