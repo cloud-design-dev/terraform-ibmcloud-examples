@@ -30,8 +30,8 @@ resource "ibm_compute_vm_instance" "blockvsitest" {
   network_speed     = 1000
   hourly_billing    = true
   flavor_key_name   = var.vm_flavor
-  public_vlan_id    = var.public_vlan
-  private_vlan_id   = var.private_vlan
+#   public_vlan_id    = var.public_vlan
+#   private_vlan_id   = var.private_vlan
   local_disk        = false
 
   tags = [
