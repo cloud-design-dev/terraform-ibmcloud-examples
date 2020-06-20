@@ -1,13 +1,13 @@
-data "ibm_compute_ssh_key" "tycho" {
-  label = "ryan_tycho"
+data "ibm_compute_ssh_key" "ssh" {
+  label = var.ssh_key
 }
 
 resource "ibm_storage_block" "blocktest" {
   depends_on                = [ibm_compute_vm_instance.blockvsitest]
   type                      = "Endurance"
   datacenter                = var.datacenter
-  capacity                  = 20
-  iops                      = 0.25
+  capacity                  = var.storage_size
+  iops                      = var.storage_iops
   os_format_type            = "Linux"
   snapshot_capacity         = 10
   hourly_billing            = true
@@ -24,22 +24,19 @@ resource "ibm_storage_block" "blocktest" {
 
 resource "ibm_compute_vm_instance" "blockvsitest" {
   hostname          = "blockvsitest"
-  os_reference_code = var.os
-  domain            = var.domain_name
+  os_reference_code = var.os_image
+  domain            = var.domain
   datacenter        = var.datacenter
   network_speed     = 1000
   hourly_billing    = true
-  flavor_key_name   = var.vm_flavor
-#   public_vlan_id    = var.public_vlan
-#   private_vlan_id   = var.private_vlan
+  flavor_key_name   = var.instance_size
   local_disk        = false
 
   tags = [
-    "ryantiffany",
-    "terraform",
-  ]
+    var.datacenter,
+  "tag2", ]
 
-  ssh_key_ids = [data.ibm_compute_ssh_key.tycho.id]
+  ssh_key_ids = [data.ibm_compute_ssh_key.ssh.id]
 }
 
 resource "null_resource" "vsi_postinstall" {

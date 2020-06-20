@@ -1,10 +1,9 @@
 #!/bin/bash
 
-export DEBIAN_FRONTEND=noninteractive
-apt-get update 
-apt-get upgrade -y
+DEBIAN_FRONTEND=noninteractive apt-get update 
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
-apt install multipath-tools -y 
+DEBIAN_FRONTEND=noninteractive apt install multipath-tools -y 
 
 service multipath-tools start
 
@@ -29,6 +28,5 @@ systemctl restart iscsid
 targetip=$(cat /tmp/mountpath.txt | grep Target |  awk '{print $4}')
 
 iscsiadm -m discovery -t sendtargets -p "$targetip"
-# iscsiadm -m discovery -t sendtargets -p
 iscsiadm -m node --login
 fdisk -l | grep /dev/mapper
