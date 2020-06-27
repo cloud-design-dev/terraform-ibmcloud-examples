@@ -1,15 +1,17 @@
 #!/bin/bash
 
-export DEBIAN_FRONTEND=noninteractive
-apt-get update 
-apt-get upgrade -y
+DEBIAN_FRONTEND=noninteractive apt-get update 
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
-apt install multipath-tools -y 
+DEBIAN_FRONTEND=noninteractive apt install wget multipath-tools -y 
+
+wget -O /tmp/initiatorname.iscsi https://raw.githubusercontent.com/greyhoundforty/IBMCloud-Terraform-Examples/master/BlockVSI/initiatorname.iscsi
+wget -O /tmp/iscsi-example.conf https://raw.githubusercontent.com/greyhoundforty/IBMCloud-Terraform-Examples/master/BlockVSI/iscsi-example.conf
 
 service multipath-tools start
 
 blockiqn=$(cat /tmp/mountpath.txt | head -n1 | awk '{print $1}' | cut -d ':' -f2,3- | cut -d ']' -f1)
-sed -i "s|DEFAULTIQN|$blockiqn|" /tmp/initiatorname.iscsi
+sed -i "s|DEFAULTIQN|${blockiqn}|" /tmp/initiatorname.iscsi
 mv /etc/iscsi/initiatorname.iscsi{,.bak}
 mv /tmp/initiatorname.iscsi /etc/iscsi/initiatorname.iscsi
 

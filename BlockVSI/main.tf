@@ -31,32 +31,23 @@ resource "ibm_compute_vm_instance" "blockvsitest" {
   hourly_billing    = true
   flavor_key_name   = var.instance_size
   local_disk        = false
-
-  tags = [
-    var.datacenter,
-  "tag2", ]
-
-  ssh_key_ids = [data.ibm_compute_ssh_key.ssh.id]
+  ssh_key_ids       = [data.ibm_compute_ssh_key.ssh.id]
+  tags              = [var.datacenter, "tag2"]
 }
 
 resource "null_resource" "vsi_postinstall" {
+  depends_on = [ibm_compute_vm_instance.blockvsitest]
+
   connection {
-    host = ibm_compute_vm_instance.blockvsitest.ipv4_address
+    type        = "ssh"
+    user        = "root"
+    host        = ibm_compute_vm_instance.blockvsitest.ipv4_address
+    private_key = file("~/.ssh/id_rsa")
   }
 
   provisioner "file" {
     source      = "mount.sh"
     destination = "/tmp/mount.sh"
-  }
-
-  provisioner "file" {
-    source      = "initiatorname.iscsi"
-    destination = "/tmp/initiatorname.iscsi"
-  }
-
-  provisioner "file" {
-    source      = "iscsi-example.conf"
-    destination = "/tmp/iscsi-example.conf"
   }
 
   provisioner "file" {
