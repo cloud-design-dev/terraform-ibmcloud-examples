@@ -1,11 +1,11 @@
 variable "datacenter" {
-  description = "Classic IaaS username."
+  description = "Datacenter where gateway appliances and VLANs will be deployed."
   type        = string
   default     = ""
 }
 
 variable "domainname" {
-  description = "Classic IaaS username."
+  description = "Domain name for gateway appliances."
   type        = string
   default     = "cloud-design.dev"
 }
@@ -23,7 +23,7 @@ variable "iaas_classic_api_key" {
 }
 
 variable "ssh_key" {
-  description = "SSH key to add to instance."
+  description = "SSH key to add to gateway appliances."
   type        = string
   default     = ""
 }
