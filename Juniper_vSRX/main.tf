@@ -1,21 +1,21 @@
 resource "ibm_network_vlan" "ha_srx_public_vlan" {
-  name            = "srx-public-rt"
+  name            = "srx-public-vlan"
   datacenter      = var.datacenter
   type            = "PUBLIC"
   router_hostname = "fcr01a.${var.datacenter}"
-  tags            = [var.datacenter, "ryantiffany"]
+  tags            = [var.datacenter]
 }
 
 resource "ibm_network_vlan" "ha_srx_private_vlan" {
-  name            = "srx-private-rt"
+  name            = "srx-private-vlan"
   datacenter      = var.datacenter
   type            = "PRIVATE"
   router_hostname = "bcr01a.${var.datacenter}"
-  tags            = [var.datacenter, "ryantiffany"]
+  tags            = [var.datacenter]
 }
 
 resource "ibm_network_gateway" "ha_vsrx" {
-  name = "ha-srx-us-east"
+  name = "ha-srx"
 
   members {
     hostname             = "ha1-srx-${var.datacenter}"
@@ -65,12 +65,12 @@ resource "ibm_network_gateway_vlan_association" "public_association" {
   depends_on      = [ibm_network_gateway.ha_vsrx]
   gateway_id      = ibm_network_gateway.ha_vsrx.id
   network_vlan_id = ibm_network_vlan.ha_srx_public_vlan.id
-  bypass          = false 
+  bypass          = false
 }
 
 resource "ibm_network_gateway_vlan_association" "private_association" {
   depends_on      = [ibm_network_gateway.ha_vsrx]
   gateway_id      = ibm_network_gateway.ha_vsrx.id
   network_vlan_id = ibm_network_vlan.ha_srx_private_vlan.id
-  bypass          = false 
+  bypass          = false
 }

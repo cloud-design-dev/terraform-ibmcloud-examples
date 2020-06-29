@@ -7,7 +7,7 @@ variable "datacenter" {
 variable "domainname" {
   description = "Domain name for gateway appliances."
   type        = string
-  default     = "cloud-design.dev"
+  default     = ""
 }
 
 variable "iaas_classic_username" {
