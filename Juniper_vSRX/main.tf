@@ -65,10 +65,12 @@ resource "ibm_network_gateway_vlan_association" "public_association" {
   depends_on      = [ibm_network_gateway.ha_vsrx]
   gateway_id      = ibm_network_gateway.ha_vsrx.id
   network_vlan_id = ibm_network_vlan.ha_srx_public_vlan.id
+  bypass          = false 
 }
 
 resource "ibm_network_gateway_vlan_association" "private_association" {
   depends_on      = [ibm_network_gateway.ha_vsrx]
   gateway_id      = ibm_network_gateway.ha_vsrx.id
   network_vlan_id = ibm_network_vlan.ha_srx_private_vlan.id
+  bypass          = false 
 }
