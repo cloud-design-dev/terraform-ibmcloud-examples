@@ -1,5 +1,5 @@
 resource "ibm_network_vlan" "ha_srx_public_vlan" {
-  name            = "srx-public-vlan"
+  name            = "srx-public-rt"
   datacenter      = var.datacenter
   type            = "PUBLIC"
   router_hostname = "fcr01a.${var.datacenter}"
@@ -7,7 +7,7 @@ resource "ibm_network_vlan" "ha_srx_public_vlan" {
 }
 
 resource "ibm_network_vlan" "ha_srx_private_vlan" {
-  name            = "srx-private-vlan"
+  name            = "srx-private-rt"
   datacenter      = var.datacenter
   type            = "PRIVATE"
   router_hostname = "bcr01a.${var.datacenter}"
