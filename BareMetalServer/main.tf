@@ -1,12 +1,8 @@
-data "ibm_compute_ssh_key" "sshkey" {
-  label = "YOUR_SSH_KEY"
-}
-
 resource "ibm_compute_bare_metal" "monthly_bm1" {
   package_key_name       = "DUAL_E52600_V4_12_DRIVES"
   process_key_name       = "INTEL_INTEL_XEON_E52620_V4_2_10"
   memory                 = 64
-  os_key_name            = "OS_UBUNTU_16_04_LTS_XENIAL_XERUS_64_BIT"
+  os_key_name            = var.os_image
   hostname               = "bm-tf-test"
   domain                 = var.domain
   datacenter             = var.datacenter
@@ -18,7 +14,7 @@ resource "ibm_compute_bare_metal" "monthly_bm1" {
   unbonded_network       = true
   public_vlan_id         = var.public_vlan_id
   private_vlan_id        = var.private_vlan_id
-  tags                   = ["tag1", "tag2"]
+  tags                   = ["baremetal", var.datacenter]
   redundant_power_supply = true
 }
 

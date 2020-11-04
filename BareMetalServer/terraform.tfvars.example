@@ -1,0 +1,12 @@
+# Classic IaaS Username
+iaas_classic_username = ""
+# Classic IaaS API key
+iaas_classic_api_key = ""
+# Datacenter to deploy storage and server
+datacenter = ""
+# SSH key to be added to the server
+ssh_key = ""
+# Public VLAN where bare metal will be deployed
+public_vlan_id = ""
+# Private VLAN where bare metal will be deployed
+private_vlan_id = ""
