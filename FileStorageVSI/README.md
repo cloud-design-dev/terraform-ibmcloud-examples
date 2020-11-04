@@ -8,7 +8,7 @@ This example will deploy a File Storage volume and Ubuntu based VSI. The additio
 
 ```shell
 $ git clone https://github.com/greyhoundforty/IBMCloud-Terraform-Examples.git
-$ cd BlockVSI
+$ cd FileStorageVSI
 ```
 
 **Step 2: Update example `.tfvars` file**
