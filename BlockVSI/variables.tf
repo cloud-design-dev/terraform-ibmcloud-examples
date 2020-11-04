@@ -13,9 +13,9 @@ variable "iaas_classic_api_key" {
 variable "ssh_key" {
   description = "SSH key to add to instance."
   type        = string
-  default     = "ryan_hyperion_2020"
+  default     = ""
 }
 
 variable datacenter {
-  default = "wdc07"
+  default = ""
 }
