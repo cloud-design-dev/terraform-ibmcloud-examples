@@ -8,7 +8,7 @@ The following example will deploy a montly Bare Metal server to the IBM Cloud us
 
 ```shell
 $ git clone https://github.com/greyhoundforty/IBMCloud-Terraform-Examples.git
-$ cd BlockVSI
+$ cd BareMetalServer
 ```
 
 **Step 2: Update example `.tfvars` file**
