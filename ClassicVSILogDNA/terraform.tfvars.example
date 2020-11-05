@@ -1,0 +1,14 @@
+# Classic IaaS Username
+iaas_classic_username = ""
+# Classic IaaS API key
+iaas_classic_api_key = ""
+# IBM Cloud API key
+ibmcloud_api_key = ""
+# Datacenter to deploy server
+datacenter = ""
+# SSH key to be added to the server
+ssh_key = ""
+# Region where logdna will be deployed
+region = ""
+# Resource group for logdna instance
+resource_group = ""
