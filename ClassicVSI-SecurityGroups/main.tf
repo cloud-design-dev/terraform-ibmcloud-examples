@@ -25,5 +25,6 @@ resource "ibm_compute_vm_instance" "node" {
   ssh_key_ids                = [data.ibm_compute_ssh_key.sshkey.id]
   public_security_group_ids  = [ibm_security_group.custom_security_group.id, data.ibm_security_group.allow_outbound.id, data.ibm_security_group.allow_http.id]
   private_security_group_ids = [data.ibm_security_group.allow_outbound.id, data.ibm_security_group.allow_ssh.id]
+  user_metadata              = file("${path.module}/install.sh")
 }
 
