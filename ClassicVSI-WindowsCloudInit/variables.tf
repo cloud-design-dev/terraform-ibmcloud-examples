@@ -1,29 +1,35 @@
-variable "ibm_bx_api_key" {
+variable "iaas_classic_username" {
+  description = "Classic IaaS username."
+  type        = string
+  default     = ""
 }
 
-variable "ibm_sl_username" {
+variable "iaas_classic_api_key" {
+  description = "Classic IaaS API Key."
+  type        = string
+  default     = ""
 }
 
-variable "ibm_sl_api_key" {
-}
-
-variable "public_vlan" {
-  default = 1892917
-}
-
-variable "private_vlan" {
-  default = 1892939
-}
-
-variable "domainname" {
-  default = "cde.services"
+variable "domain" {
+  description = "Domain to use with instance."
+  default     = "cdetesting.com"
 }
 
 variable "datacenter" {
-  default = "wdc07"
+  description = "Datacenter where instance and storage will be deployed."
+  type        = string
+  default     = ""
 }
 
-variable "vm_flavor" {
-  default = "B1_2X4X100"
+variable "instance_size" {
+  description = "Size of classic instance."
+  type        = string
+  default     = "BL2_4X16X100"
+}
+
+variable "os_image" {
+  description = "Operating System image for classic instance."
+  type        = string
+  default     = "WIN_2019-STD_64"
 }
 
