@@ -3,8 +3,10 @@ The following examples will demonstrate how to deploy a wide variety of infrastr
 
 ## Prerequisites
 * [Terraform installed](https://www.terraform.io/intro/getting-started/install.html)
-* [IBM Cloud Classic Username / API Key](https://cloud.ibm.com/docs/account?topic=account-classic_keys) # This is only required if deploying classic resources
+* [IBM Cloud Classic IaaS Username / API Key](https://cloud.ibm.com/docs/account?topic=account-classic_keys) # This is only required if deploying classic resources
+* [IBM Cloud Classic IaaS SSH Key](https://cloud.ibm.com/docs/ssh-keys?topic=ssh-keys-adding-an-ssh-key#adding-an-ssh-key)
 * [IBM Cloud API Key](https://cloud.ibm.com/docs/account?topic=account-userapikey#create_user_key)
+* [IBM Cloud VPC SSH Key](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)
 
 > The examples in this respository are currently being ported to work with Terraform 0.13 and above. If you would like to work with multiple versions of Terraform on the same machine take a look at [tfswitch](https://github.com/warrensbox/terraform-switcher).
 
