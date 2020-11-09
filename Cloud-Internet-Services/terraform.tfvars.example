@@ -1,0 +1,8 @@
+# IBM Cloud API key
+ibmcloud_api_key = ""
+# Name assigned to deployed resources
+name = ""
+# Resource group name for deployed resources
+resource_group = ""
+# Domain to add to CIS. This must be a registered domain.
+domain = ""
