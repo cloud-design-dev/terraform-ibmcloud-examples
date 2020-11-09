@@ -1,5 +1,5 @@
 variable ibmcloud_api_key {
-  description = "IBM Cloud API key used to deploy LogDNA instance"
+  description = "IBM Cloud API key used to deploy VPC resources."
   type        = string
   default     = ""
 }
@@ -7,26 +7,11 @@ variable ibmcloud_api_key {
 variable "region" {
   type        = string
   description = "The region where the VPC resources will be deployed."
-  default     = "au-syd"
+  default     = ""
 }
 
 variable "resource_group" {
-  default = "CDE"
-}
-
-variable "basename" {
   default = ""
-}
-
-variable "tags" {
-  default = ["terraform", "ryantiffany"]
-}
-
-variable "remote_ip" {
-  description = "Remote IP that will be allowed to access Bastion host."
-  type        = string
-  default     = ""
-
 }
 
 variable "ssh_key" {
@@ -35,4 +20,18 @@ variable "ssh_key" {
 
 variable "ibmcloud_timeout" {
   default = 900
+}
+
+variable "project_name" {
+  description = "The project name is used to name the cluster with the environment name"
+  default     = ""
+}
+variable "owner" {
+  description = "Use your user name or team name. The owner is used to label the cluster and other resources"
+  default     = ""
+}
+
+variable "environment" {
+  default     = "dev"
+  description = "The environment name is used to name the cluster with the project name"
 }

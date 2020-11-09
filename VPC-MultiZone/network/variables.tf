@@ -1,6 +1,7 @@
 variable "name" {}
-variable "vpc" {}
-variable "zone" {}
-variable "resource_group_id" {}
+variable "region" {}
+variable "resource_group" {}
 
 variable "network_acl" {}
+
+variable vpc_id {}

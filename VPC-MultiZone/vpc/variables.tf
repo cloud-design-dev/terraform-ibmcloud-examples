@@ -1,7 +1,5 @@
-variable "resource_group_id" {}
+variable "resource_group" {}
 
 variable "name" {}
 
 variable "tags" {}
-
-variable "zone" {}

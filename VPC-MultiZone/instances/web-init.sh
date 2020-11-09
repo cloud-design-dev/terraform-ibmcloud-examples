@@ -5,7 +5,7 @@ DEBIAN_FRONTEND=noninteractive apt -qqy update
 DEBIAN_FRONTEND=noninteractive apt-get -qqy -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' upgrade
 
 ## Install Dependencies
-DEBIAN_FRONTEND=noninteractive apt -qqy -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install python3-apt python3-pip curl wget unzip jq
+DEBIAN_FRONTEND=noninteractive apt -qqy -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install python3-apt python3-pip curl wget unzip jq apache2
 
 ## Configure Private DNS
 cat > /etc/netplan/99-custom-dns.yaml << EOF
