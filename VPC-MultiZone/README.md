@@ -38,3 +38,6 @@ If our plan generated successfully we can now deploy our resources using the `ap
 ```shell
 $ terraform apply default.tfplan
 ```
+
+## Deployment diagram
+![VPC MZR deployment](vpc-mzr.png)
