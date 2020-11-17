@@ -17,7 +17,7 @@ resource "ibm_dns_resource_record" "instance_record" {
   instance_id = var.instance_id
   zone_id     = ibm_dns_zone.consul_zone.zone_id
   type        = "A"
-  name        = "${var.name}-instance-${count.index + 1}"
+  name        = "${var.name}-instance${count.index + 1}"
   rdata       = var.instance_ips[count.index]
   ttl         = 3600
 }

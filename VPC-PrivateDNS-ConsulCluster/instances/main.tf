@@ -9,11 +9,17 @@ resource "ibm_is_instance" "instance" {
   resource_group = var.resource_group
 
   # inject dns config
-  user_data = templatefile("${path.module}/instance-init.sh", {hostname = var.name})
+  user_data = templatefile("${path.module}/instance-init.sh", { hostname = var.name, consul_version = var.consul_version, encrypt_key = var.encrypt_key, acl_token = var.acl_token, zone = var.zone })
 
   primary_network_interface {
     subnet          = data.ibm_is_subnet.subnet.id
-    security_groups = [data.ibm_is_security_group.consul.id, data.ibm_is_security_group.dmz.id]
+    security_groups = var.internal_security_group
+  }
+
+  network_interfaces {
+    name            = "eth1"
+    subnet          = data.ibm_is_subnet.subnet.id
+    security_groups = var.consul_security_group
   }
 
   boot_volume {

@@ -22,6 +22,6 @@ data ibm_is_ssh_key key {
 data ibm_is_subnets subnets {
 }
 
-data ibm_is_security_group dmz {
-  name = var.dmz_security_group
+data ibm_is_security_group internal {
+  name = var.internal_security_group
 }

@@ -10,12 +10,15 @@ variable profile_name {
 }
 
 variable image_name {
-  default = "u18basebox-rt"
+  default = "ibm-ubuntu-20-04-minimal-amd64-2"
 }
 
-variable consul_sg {
-}
+variable internal_security_group {}
+variable consul_security_group {}
 
+variable consul_version {
+  default = "1.7.9"
+}
+variable encrypt_key {}
+variable acl_token {}
 variable "tags" {}
-
-variable dmz_sg {}

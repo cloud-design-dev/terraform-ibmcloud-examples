@@ -48,4 +48,7 @@ variable pdns_instance_id {
 
 }
 
-variable "dmz_security_group" {}
+variable "internal_security_group" {}
+
+variable "acl_token" {}
+variable "encrypt_key" {}
