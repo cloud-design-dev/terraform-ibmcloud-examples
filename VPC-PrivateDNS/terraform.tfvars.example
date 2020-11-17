@@ -1,10 +1,8 @@
 # Name assigned to VPC and associated resources
 project_name = ""
 # Region where resources will be deployed
-region = ""
+region = "jp-tok"
 # Resource group name for deployed resources
-resource_group = ""
+resource_group = "CDE"
 # The public ssh key to add to the compute instances
 ssh_key = ""
-# Remote IP that is allowed to SSH in to compute instance
-remote_ip = ""
