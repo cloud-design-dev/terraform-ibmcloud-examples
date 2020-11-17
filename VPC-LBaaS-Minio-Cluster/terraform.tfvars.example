@@ -1,0 +1,6 @@
+name = "mc"
+resource_group = "CDE"
+region = "us-east"
+ssh_key = "hyperion-us-east"
+#access_key = ""
+#secret_key = ""
