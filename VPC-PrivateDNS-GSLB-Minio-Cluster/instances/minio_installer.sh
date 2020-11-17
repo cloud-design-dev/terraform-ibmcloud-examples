@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 installerlog="$HOME/install.log"
 touch "$installerlog"
@@ -9,13 +9,6 @@ apt-get update
 apt-get upgrade -y
 apt-get install -y btrfs-tools  
 } >> "$installerlog" 2>&1
-
-mount_meta() {
-mkdir /tmp/keys
-mount /dev/xvdh /tmp/keys
-msecret=$(cat /tmp/keys/openstack/latest/user_data | awk '{print $3}' | cut -d '=' -f2 | cut -d '"' -f1)
-mskey=$(cat /tmp/keys/openstack/latest/user_data | awk '{print $1}' | cut -d '=' -f2 | cut -d '"' -f1)
-}
 
 ## Create btrfs filesystem, mount it and update fstab
 setup_btrfs() {
@@ -33,14 +26,13 @@ echo "UUID=$btuuid /storage   btrfs  defaults 0 0" | sudo tee --append /etc/fsta
 setup_minio() { 
 wget -O /usr/local/bin/minio https://dl.minio.io/server/minio/release/linux-amd64/minio
 chmod +x /usr/local/bin/minio
-hostip=$(curl -s https://api.service.softlayer.com/rest/v3/SoftLayer_Resource_Metadata/getPrimaryBackendIpAddress | cut -d '"' -f2)
 
 cat <<EOT >> /etc/default/minio
 # Local export path.
-MINIO_VOLUMES=http://node0.cde.services/storage http://node1.cde.services/storage http://node2.cde.services/storage http://node3.cde.services/storage
-MINIO_OPTS="-C /etc/minio --address $hostip:9000"
-MINIO_ACCESS_KEY="$mkey"
-MINIO_SECRET_KEY="$msecret"
+MINIO_VOLUMES=http://mcluster-instance-1.cde.consul/storage http://mcluster-instance-2.cde.consul/storage http://mcluster-instance-3.cde.consul/storage http://mcluster-instance-4.cde.consul/storage
+MINIO_OPTS="-C /etc/minio --address `hostname -I`:9000"
+MINIO_ACCESS_KEY="${ACCESS_KEY}"
+MINIO_SECRET_KEY="${SECRET_KEY"
 EOT
 
 useradd -r minio-user -s /sbin/nologin

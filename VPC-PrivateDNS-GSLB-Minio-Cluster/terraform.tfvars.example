@@ -1,0 +1,4 @@
+name = "mcluster"
+region = "jp-tok"
+ssh_key = "hyperion-jp-tok"
+resource_group = "CDE"
