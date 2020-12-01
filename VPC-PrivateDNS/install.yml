@@ -1,0 +1,7 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+packages:
+    - apache2
+final_message: "The system is finally up, after $UPTIME seconds"
+output: {all: '| tee -a /var/log/cloud-init-output.log'}

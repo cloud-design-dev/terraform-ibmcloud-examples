@@ -1,6 +1,18 @@
+resource tls_private_key ssh {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource ibm_is_ssh_key generated_key {
+  name           = "${var.project_name}-${var.region}-sshkey"
+  public_key     = tls_private_key.ssh.public_key_openssh
+  resource_group = data.ibm_resource_group.project_group.id
+  tags           = concat(var.tags, ["region:${var.region}", "project:${local.name}", "terraform:workspace:${terraform.workspace}"])
+}
+
 resource "ibm_is_vpc" "vpc" {
-  name           = var.project_name
-  resource_group = data.ibm_resource_group.group.id
+  name           = "${var.project_name}-vpc"
+  resource_group = data.ibm_resource_group.project_group.id
   tags           = concat(var.tags, ["vpc"])
 }
 
@@ -10,7 +22,6 @@ resource ibm_is_public_gateway gateway {
   zone           = data.ibm_is_zones.mzr.zones[0]
   resource_group = data.ibm_resource_group.group.id
 }
-
 
 resource ibm_is_subnet subnet {
   name                     = "${var.project_name}-subnet"
@@ -37,8 +48,8 @@ resource ibm_is_security_group_rule http_in {
   direction = "inbound"
   remote    = "0.0.0.0/0"
   tcp {
-    port_min = 22
-    port_max = 22
+    port_min = 80
+    port_max = 80
   }
 }
 
@@ -50,7 +61,7 @@ resource ibm_is_security_group_rule all_out {
 }
 
 resource "ibm_is_instance" "instance" {
-  count          = 2
+  count          = var.instance_count
   name           = "${var.project_name}-instance-${count.index + 1}"
   vpc            = ibm_is_vpc.vpc.id
   zone           = data.ibm_is_zones.mzr.zones[0]
@@ -60,7 +71,7 @@ resource "ibm_is_instance" "instance" {
   resource_group = data.ibm_resource_group.group.id
 
   # inject dns config
-  user_data = file("${path.module}/instance-init.sh")
+  user_data = file("${path.module}/init.yml")
 
   primary_network_interface {
     subnet          = ibm_is_subnet.subnet.id
@@ -81,15 +92,23 @@ resource "ibm_is_floating_ip" "ip" {
   resource_group = data.ibm_resource_group.group.id
 }
 
+resource "ibm_resource_instance" "project_instance" {
+  name              = "${var.project_name}-dns-instance"
+  resource_group_id = data.ibm_resource_group.project_group.id
+  location          = "global"
+  service           = "dns-svcs"
+  plan              = "standard-dns"
+}
+
 resource "ibm_dns_zone" "zone" {
     name = var.domain
-    instance_id = data.ibm_resource_instance.private_dns_instance.id 
+    instance_id = ibm_resource_instance.project_instance.id 
     description = "Private DNS Zone for VPC DNS communication."
     label = "testlabel"
 }
 
 resource "ibm_dns_permitted_network" "permitted_network" {
-    instance_id = data.ibm_resource_instance.private_dns_instance.id
+    instance_id = ibm_resource_instance.project_instance.id
     zone_id = ibm_dns_zone.zone.zone_id
     vpc_crn = ibm_is_vpc.vpc.crn
     type = "vpc"
@@ -97,7 +116,7 @@ resource "ibm_dns_permitted_network" "permitted_network" {
 
 resource "ibm_dns_resource_record" "a_records" {
   count = var.instance_count
-  instance_id = data.ibm_resource_instance.private_dns_instance.id
+  instance_id = ibm_resource_instance.project_instance.id
   zone_id     = ibm_dns_zone.zone.zone_id
   type        = "A"
   name        = "${var.project_name}-instance-${count.index + 1}"
