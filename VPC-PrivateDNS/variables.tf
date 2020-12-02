@@ -2,7 +2,6 @@ variable tags {
   default = ["terraform", "ryantiffany"]
 }
 variable project_name {}
-variable ssh_key {}
 variable region {}
 variable image {
   default = "ibm-ubuntu-20-04-minimal-amd64-2"
@@ -20,13 +19,11 @@ variable resource_group {}
 variable ibmcloud_api_key {}
 
 variable ibmcloud_timeout {
-    default = 900
+  default = 900
 }
 
-variable domain {
-    default = "cde.local"
-}
+variable domain {}
 
 variable "instance_count" {
-    default = 2
+  default = 2
 }
