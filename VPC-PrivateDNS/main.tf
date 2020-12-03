@@ -102,13 +102,13 @@ resource "ibm_resource_instance" "project_instance" {
 
 resource "ibm_dns_zone" "zone" {
   name        = var.domain
-  instance_id = ibm_resource_instance.project_instance.id
+  instance_id = ibm_resource_instance.project_instance.guid
   description = "Private DNS Zone for VPC DNS communication."
   label       = "testlabel"
 }
 
 resource "ibm_dns_permitted_network" "permitted_network" {
-  instance_id = ibm_resource_instance.project_instance.id
+  instance_id = ibm_resource_instance.project_instance.guid
   zone_id     = ibm_dns_zone.zone.zone_id
   vpc_crn     = ibm_is_vpc.vpc.crn
   type        = "vpc"
@@ -116,7 +116,7 @@ resource "ibm_dns_permitted_network" "permitted_network" {
 
 resource "ibm_dns_resource_record" "a_records" {
   count       = var.instance_count
-  instance_id = ibm_resource_instance.project_instance.id
+  instance_id = ibm_resource_instance.project_instance.guid
   zone_id     = ibm_dns_zone.zone.zone_id
   type        = "A"
   name        = "${var.project_name}-instance-${count.index + 1}"

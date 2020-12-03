@@ -1,0 +1,10 @@
+# Name assigned to VPC and associated resources
+project_name = ""
+# Region where resources will be deployed
+region = ""
+# Resource group name for deployed resources
+resource_group = ""
+# IBM Cloud API Key used to deploy resources
+ibmcloud_api_key = ""
+# Domain name to use for the Private DNS zone
+domain = ""
