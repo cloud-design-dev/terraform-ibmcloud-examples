@@ -7,4 +7,4 @@ variable tags {
   default = ["terraform", "ryantiffany"]
 }
 
-variable "ssh_key" {}
+variable instance_count {}

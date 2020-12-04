@@ -1,6 +1,6 @@
 #!/bin/bash
 
-installerlog="$HOME/install.log"
+installerlog="/tmp/install.log"
 touch "$installerlog"
 
 ## Update system and install btrfs tools
