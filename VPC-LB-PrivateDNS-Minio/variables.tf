@@ -7,4 +7,7 @@ variable tags {
   default = ["terraform", "ryantiffany"]
 }
 
-variable instance_count {}
+variable instance_count {
+  default = 4
+}
+

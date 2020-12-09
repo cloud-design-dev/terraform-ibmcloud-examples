@@ -28,31 +28,3 @@ module security {
   default_security_group = module.vpc.default_security_group
   subnet                 = module.subnet.ipv4_cidr_block
 }
-
-module minio {
-  source                 = "./instances"
-  count                  = var.instance_count
-  name                   = "${var.name}-${count.index + 1}"
-  default_security_group = module.vpc.default_security_group
-  resource_group         = var.resource_group
-  zone                   = data.ibm_is_zones.mzr.zones[0]
-  vpc_id                 = module.vpc.id
-  subnet_id              = module.subnet.id
-  tags                   = var.tags
-  ssh_key                = 
-}
-
-resource "ibm_is_floating_ip" "bastion_ip" {
-  name           = "${var.name}-bastion-fip"
-  target         = module.minio[0].primary_network_interface
-  resource_group = data.ibm_resource_group.group.id
-}
-
-module lbaas {
-  source         = "./lbaas"
-  name           = var.name
-  resource_group = var.resource_group
-  instances      = module.minio[*].instances
-  subnet_id      = module.subnet.id
-  tags           = var.tags
-}

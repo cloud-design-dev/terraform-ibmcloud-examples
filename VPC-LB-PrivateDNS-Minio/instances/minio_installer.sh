@@ -10,24 +10,17 @@ DEBIAN_FRONTEND=noninteractive apt-get -qqy -o Dpkg::Options::='--force-confdef'
 DEBIAN_FRONTEND=noninteractive apt -qqy -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install python3-apt python3-pip curl wget unzip jq btrfs-tools  
 } >> "$installerlog" 2>&1
 
-# mount_meta() {
-# mkdir /tmp/keys
-# mount /dev/xvdh /tmp/keys
-# msecret=$(cat /tmp/keys/openstack/latest/user_data | awk '{print $3}' | cut -d '=' -f2 | cut -d '"' -f1)
-# mskey=$(cat /tmp/keys/openstack/latest/user_data | awk '{print $1}' | cut -d '=' -f2 | cut -d '"' -f1)
-# }
+## Create btrfs filesystem, mount it and update fstab
+setup_btrfs() {
+mkfs.btrfs /dev/vdd -f
 
-# ## Create btrfs filesystem, mount it and update fstab
-# setup_btrfs() {
-# mkfs.btrfs /dev/xvdc /dev/xvde /dev/xvdf /dev/xvdg -f
+mkdir /storage 
+mount /dev/vdd  /storage
 
-# mkdir /storage 
-# mount /dev/xvdc /storage
+btuuid=$(lsblk --fs /dev/vdd | grep -v UUID | awk '{print $3}')
 
-# btuuid=$(lsblk --fs /dev/xvdc | grep -v UUID | awk '{print $3}')
-
-# echo "UUID=$btuuid /storage   btrfs  defaults 0 0" | sudo tee --append /etc/fstab
-# } >> "$installerlog" 2>&1
+echo "UUID=$btuuid /storage   btrfs  defaults 0 0" | sudo tee --append /etc/fstab
+} >> "$installerlog" 2>&1
 
 # ## Install minio binary and create default files
 # setup_minio() { 
@@ -59,10 +52,10 @@ DEBIAN_FRONTEND=noninteractive apt -qqy -o Dpkg::Options::='--force-confdef' -o 
 # echo -e "$hostip\t$(hostname -f)\t$(hostname -s)" | tee -a /etc/hosts
 # }
 
-# sys_update 
-# mount_meta
-# setup_btrfs
-# setup_minio
-# fix_hosts_issue
+checkin() {
+curl -X POST --data-urlencode "payload={\"channel\": \"#ibmcloud\", \"username\": \"webhookbot\", \"text\": \"System `hostname -s` has come online system with a primary ip of: `hostname -I`\"}, \"icon_emoji\": \":ghost:\"}" "https://hooks.slack.com/services/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"
+} >> "$installerlog" 2>&1
 
-# sleep 300 && shutdown -r now
+sys_update
+setup_btrfs
+checkin

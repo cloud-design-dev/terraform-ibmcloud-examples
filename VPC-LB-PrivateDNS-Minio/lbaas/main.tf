@@ -7,7 +7,7 @@ resource ibm_is_lb lb {
 
 resource ibm_is_lb_pool pool {
   name           = "${var.name}-lb-pool"
-  lb             = ibm_is_lb.lb.id 
+  lb             = ibm_is_lb.lb.id
   algorithm      = "round_robin"
   protocol       = "http"
   health_delay   = 60
@@ -17,7 +17,7 @@ resource ibm_is_lb_pool pool {
 }
 
 resource "ibm_is_lb_pool_member" "pool_member" {
-    count = length(var.instances)
+  count          = length(var.instances)
   lb             = ibm_is_lb.lb.id
   pool           = ibm_is_lb_pool.pool.id
   port           = 9000

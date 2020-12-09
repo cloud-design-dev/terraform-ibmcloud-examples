@@ -20,3 +20,5 @@ variable resource_group {}
 variable vpc_id {}
 
 variable ssh_key {}
+
+variable instance_count {}

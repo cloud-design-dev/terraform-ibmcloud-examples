@@ -1,0 +1,24 @@
+---
+  - hosts: instances
+    become: true
+    vars_files:
+      deployment_vars.yml
+    tasks:
+      - name: Update apt packages
+        apt: upgrade=yes update_cache=yes
+        when: ansible_facts['os_family'] == "Debian"
+      - name: Ensure unzip is installed
+        apt:
+          name: unzip
+          state: present
+      - name: Download minio binary
+        get_url:
+          url: https://dl.minio.io/server/minio/release/linux-amd64/minio
+          dest: /usr/local/bin/minio
+          mode: '0755'
+      - name: Copy server config to instance 
+        copy:
+          src: ../templates/minio-config.j2
+          dest: /etc/default/minio
+      - name: Pull default minio config
+        debug: msg="the value of /etc/default/minio is {{lookup('file', '/etc/default/minio') }}"
