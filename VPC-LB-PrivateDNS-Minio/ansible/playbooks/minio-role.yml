@@ -1,0 +1,14 @@
+---
+- name: "Install Minio"
+  hosts: instances
+  become: true
+  roles:
+    - { role: atosatto.minio }
+  vars:
+    minio_server_datadirs: [ "/storage" ]
+    minio_access_key: "{{ access_key }}"
+    minio_secret_key: "{{ secret_key }}"
+    minio_install_server: true
+    minio_server_cluster_nodes:
+      - '{% for host in servers %} http://{{ hostvars[host].ansible_ens3.ipv4.address }}:9000  {% endfor %}'
+    minio_server_envfile: /etc/default/minio

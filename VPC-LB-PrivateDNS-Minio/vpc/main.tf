@@ -9,7 +9,7 @@ module public_gateway {
   name           = var.name
   resource_group = var.resource_group
   vpc_id         = module.vpc.id
-  zone           = data.ibm_is_zones.mzr.zones[0]
+  zone           = var.zone
 }
 
 module subnet {
@@ -19,7 +19,7 @@ module subnet {
   network_acl    = module.vpc.default_network_acl
   address_count  = "32"
   vpc_id         = module.vpc.id
-  zone           = data.ibm_is_zones.mzr.zones[0]
+  zone           = var.zone
   public_gateway = module.public_gateway.id
 }
 

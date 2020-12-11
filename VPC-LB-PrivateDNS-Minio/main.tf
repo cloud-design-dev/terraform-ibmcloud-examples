@@ -27,15 +27,16 @@ module vpc {
   resource_group = var.resource_group
   name           = var.name
   region         = var.region
+  zone           = "${var.region}-1"
 }
 
 module instances {
   source                 = "./instances"
-  instance_count = var.instance_count
+  instance_count         = var.instance_count
   name                   = var.name
   default_security_group = module.vpc.default_security_group
   resource_group         = var.resource_group
-  zone                   = data.ibm_is_zones.mzr.zones[0]
+  zone                   = "${var.region}-1"
   vpc_id                 = module.vpc.id
   subnet_id              = module.vpc.subnet_id
   tags                   = var.tags
@@ -43,12 +44,12 @@ module instances {
 }
 
 module ansible {
-  source          = "./ansible"
-  instances       = module.instances.instance[*]
-  bastion_ip      = module.instances.floating_ip
-  region          = var.region
-  access_key     = random_id.access_key.hex
-  secret_key      = random_id.secret_key.hex
+  source     = "./ansible"
+  instances  = module.instances.instance[*]
+  bastion_ip = module.instances.floating_ip
+  region     = var.region
+  access_key = random_id.access_key.hex
+  secret_key = random_id.secret_key.hex
 }
 
 

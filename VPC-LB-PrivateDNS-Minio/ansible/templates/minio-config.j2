@@ -1,4 +1,4 @@
-MINIO_VOLUMES="{% for host in servers %} http://\"{{ hostvars[host].ansible_ens3.ipv4.address }}\":9000  {% endfor %}"
-MINIO_OPTS="-C /etc/minio --address \"{{ hostvars[host].ansible_ens3.ipv4.address }}:9000\""
-MINIO_ACCESS_KEY="{{ access_key }}"
-MINIO_SECRET_KEY="{{ secret_key }}"
+MINIO_VOLUMES = "{% for host in groups['instances'] %} http://{{ hostvars[host]['ansible_ens3']['ipv4']['address'] }}:9000  {% endfor %}"
+MINIO_OPTS = "-C /etc/minio --address {{ ansible_ens3.ipv4.address }}:9000"
+MINIO_ACCESS_KEY = "{{ access_key }}"
+MINIO_SECRET_KEY = "{{ secret_key }}"
