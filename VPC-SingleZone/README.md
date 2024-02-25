@@ -17,7 +17,7 @@ This example will deploy an IBM Cloud Gen 2 VPC as well as:
 
 ```shell
 $ git clone https://github.com/greyhoundforty/IBMCloud-Terraform-Examples.git
-$ cd VPC-Gen2
+$ cd VPC-SingleZone
 ```
 
 **Step 2: Generate SSH key pair**
